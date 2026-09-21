@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Standalone HLS stream viewer" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Live Stream Viewer</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div class="app-shell direct-shell">
+      <header class="app-header">
+        <h1>Live Stream Viewer</h1>
+        <div class="connection" aria-live="polite">
+          <span id="connection-dot" class="status-dot"></span>
+          <span id="connection-label">Loading player</span>
+        </div>
+      </header>
+
+      <form id="source-form" class="direct-source">
+        <label for="source-url">HLS manifest URL</label>
+        <div class="direct-source-row">
+          <input id="source-url" name="url" type="url" required />
+          <button type="submit">Load stream</button>
+        </div>
+      </form>
+
+      <main>
+        <section class="media-panel" aria-labelledby="stream-heading">
+          <header class="panel-header">
+            <div>
+              <h2 id="stream-heading">France 24 English</h2>
+              <p id="stream-meta" class="muted">Direct HLS playback</p>
+            </div>
+          </header>
+          <div class="media-stage">
+            <video id="media" autoplay muted controls playsinline></video>
+            <p id="media-message">Loading live stream…</p>
+          </div>
+          <p class="direct-help">
+            Playback starts muted because browsers block unsolicited audio. Use the video control to unmute.
+          </p>
+        </section>
+      </main>
+
+      <div id="error-banner" class="error-banner" role="alert" hidden></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/hls.js@1.7.3/dist/hls.min.js"
+      integrity="sha384-cciJ0zi8d1uMKC2zJd7jvPY4HQt7W4ByUI/FlMkltvBi31aW61rcpVBhpmW8/NwX"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./src/direct-hls.js"></script>
+  </body>
+</html>
