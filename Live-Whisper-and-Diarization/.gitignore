@@ -1,0 +1,22 @@
+# Downloaded benchmark media and generated test outputs
+/data/
+
+# Downloaded Whisper checkpoints
+/SimulStreaming/models/*.pt
+
+# Upstream/runtime diarization checkpoints
+/Diarization-Model/exps/*.model
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Runtime output
+*.log
+*.tmp
+
+# Common local environment files
+.env
+.env.*
+.DS_Store
