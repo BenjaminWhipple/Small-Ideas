@@ -1,56 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Standalone HLS stream viewer" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>Live Stream Viewer</title>
-    <link rel="stylesheet" href="./src/style.css" />
-  </head>
-  <body>
-    <div class="app-shell direct-shell">
-      <header class="app-header">
-        <h1>Live Stream Viewer</h1>
-        <div class="connection" aria-live="polite">
-          <span id="connection-dot" class="status-dot"></span>
-          <span id="connection-label">Loading player</span>
-        </div>
-      </header>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portable stream monitoring and transcript interface prototype">
+  <title>Stream Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#streams" aria-label="Stream Hub">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Stream Hub</span>
+    </a>
+    <nav class="view-tabs" aria-label="Primary navigation">
+      <button class="tab is-active" type="button" data-view="streams" aria-selected="true">Streams</button>
+      <button class="tab" type="button" data-view="archive" aria-selected="false">Archive</button>
+    </nav>
+    <div class="system-state"><span class="status-dot"></span><span>Local demo</span></div>
+  </header>
 
-      <form id="source-form" class="direct-source">
-        <label for="source-url">HLS manifest URL</label>
-        <div class="direct-source-row">
-          <input id="source-url" name="url" type="url" required />
-          <button type="submit">Load stream</button>
+  <main>
+    <section id="streams-view" class="view is-active" aria-labelledby="streams-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Live overview</p>
+          <h1 id="streams-heading">Streams</h1>
         </div>
-      </form>
+        <p id="stream-summary" class="summary"></p>
+      </div>
 
-      <main>
-        <section class="media-panel" aria-labelledby="stream-heading">
-          <header class="panel-header">
+      <div class="stream-layout">
+        <div id="source-grid" class="source-grid" aria-label="Live feeds"></div>
+        <aside class="transcript-panel" aria-labelledby="transcript-heading">
+          <div class="panel-header">
             <div>
-              <h2 id="stream-heading">France 24 English</h2>
-              <p id="stream-meta" class="muted">Direct HLS playback</p>
+              <p class="eyebrow">Live transcript</p>
+              <h2 id="transcript-heading">Source 01</h2>
             </div>
-          </header>
-          <div class="media-stage">
-            <video id="media" autoplay muted controls playsinline></video>
-            <p id="media-message">Loading live stream…</p>
+            <span class="live-chip"><span></span>Listening</span>
           </div>
-          <p class="direct-help">
-            Playback starts muted because browsers block unsolicited audio. Use the video control to unmute.
-          </p>
-        </section>
-      </main>
+          <div id="transcript-list" class="transcript-list" aria-live="polite"></div>
+          <div class="transcript-footer">
+            <span>JSONL event preview</span>
+            <button id="pause-transcript" class="icon-button" type="button" aria-label="Pause transcript simulation" title="Pause transcript simulation">Ⅱ</button>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-      <div id="error-banner" class="error-banner" role="alert" hidden></div>
-    </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/hls.js@1.7.3/dist/hls.min.js"
-      integrity="sha384-cciJ0zi8d1uMKC2zJd7jvPY4HQt7W4ByUI/FlMkltvBi31aW61rcpVBhpmW8/NwX"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./src/direct-hls.js"></script>
-  </body>
+    <section id="archive-view" class="view" aria-labelledby="archive-heading" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Recorded media</p>
+          <h1 id="archive-heading">Archive</h1>
+        </div>
+        <p id="archive-summary" class="summary"></p>
+      </div>
+      <div class="archive-layout">
+        <div id="archive-groups" class="archive-groups"></div>
+        <aside id="archive-preview" class="archive-preview" aria-live="polite"></aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
 </html>
