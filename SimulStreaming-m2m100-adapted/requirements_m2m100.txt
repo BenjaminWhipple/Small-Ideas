@@ -1,0 +1,5 @@
+-r requirements_whisper.txt
+
+# M2M100 model and tokenizer runtime
+transformers
+sentencepiece
